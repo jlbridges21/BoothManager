@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Management Application</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="inventory-view" class="view">
+        <div class="inventory-app">
+          <h2>
+            <img id="logo" src="images/icon2.png" alt="logo" /> Booth Manager
+          </h2>
+          <button id="add-item-btn">Add New Item</button>
+          <button id="inventory-tab-btn" class="tab-btn active">
+            Inventory
+          </button>
+          <button id="sales-tab-btn" class="tab-btn">Sales</button>
+          <button id="dark-mode-toggle" class="tab-btn">Dark Mode</button>
+          <select id="booth-filter">
+            <option value="all">All Booths</option>
+          </select>
+          <div id="item-form-modal" class="modal">
+            <div class="modal-content">
+              <span class="close-button">&times;</span>
+              <h3>Inventory Item Details</h3>
+              <form id="add-item-form">
+                <label for="item-name">Name*</label>
+                <input type="text" id="item-name" name="item-name" required />
+                <label for="item-description">Description</label>
+                <textarea
+                  id="item-description"
+                  name="item-description"
+                ></textarea>
+                <label for="item-cost">Cost*</label>
+                <input
+                  type="text"
+                  id="item-cost"
+                  name="item-cost"
+                  placeholder="0.00"
+                  required
+                />
+                <label for="item-price">Price*</label>
+                <input
+                  type="text"
+                  id="item-price"
+                  name="item-price"
+                  placeholder="0.00"
+                  required
+                />
+                <label for="booth-name">Booth Name</label>
+                <input type="text" id="booth-name" name="booth-name" />
+                <button type="submit">Save Item and Close</button>
+                <button id="next-item" type="button">Add New Item</button>
+              </form>
+            </div>
+          </div>
+          <div class="search-container">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search items..."
+            />
+          </div>
+          <div class="inventory-header">
+            <span class="header-name">Name</span>
+            <span class="header-cost">Cost</span>
+            <span class="header-price">Price</span>
+          </div>
+          <ul id="inventory-list">
+            <!-- Items will be dynamically added here -->
+          </ul>
+          <div id="total-cost-display">Total Cost: $0</div>
+          <div id="total-display">Listing Price: $0</div>
+          <div id="sales-total">Sales: $0</div>
+          <button id="save-reset-sales-btn">Save Sales Data & Reset</button>
+          <button id="view-sales-log-btn">View Sales Log</button>
+          <div id="sales-log" style="display: none"></div>
+          <button id="clear-sales-log-btn" style="display: none">
+            Clear All Sales Log
+          </button>
+        </div>
+      </div>
+      <div id="sales-view" class="view" style="display: none">
+        <h3>Sold Items<img src="/images/home.png" id="home" /></h3>
+        <ul id="sales-list">
+          <!-- Sold items will be dynamically added here -->
+        </ul>
+        <div id="total-sales">Total Sales: $0</div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
