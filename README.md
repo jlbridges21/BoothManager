@@ -1,5 +1,3 @@
-Inventory Management Application
-Introduction
 The Inventory Management Application is a comprehensive web tool designed for booth managers and vendors to track and manage their product inventory, booth assignments, and sales performance efficiently. It facilitates the seamless addition and monitoring of inventory items, calculation of costs and prices, and visualization of sales data through interactive charts.
 
 Features
