@@ -44,6 +44,10 @@ body {
   margin-bottom: 20px;
 }
 
+.inventory-app h1 {
+  text-align: center;
+}
+
 /* Card styling for the totals display */
 #total-cost-display,
 #total-display,
@@ -156,13 +160,35 @@ ul {
 
 ul li {
   background: #edf2f4;
-  margin: 10px 0;
+  margin: 10px 12px;
   padding: 0 5px;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition for smooth effect */
 }
+
+
+.delete-sold-item-btn, .unsell-item-btn {
+  padding: 5px 5px; /* Padding for better touch area */
+  background-color: #85b8eb; /* A pleasant blue background */
+  color: white; /* White text for contrast */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners for a modern look */
+  cursor: pointer; /* Cursor changes to pointer to indicate clickable */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.delete-sold-item-btn:hover, .unsell-item-btn:hover {
+  background-color: #0056b3; /* Darker shade of blue on hover for interactivity */
+}
+
+ul li:hover {
+  background-color: #dbe2e6; /* Slightly darker shade of the original color */
+  transform: scale(1.02); /* Slightly grow the item */
+}
+
 
 .delete-btn,
 .edit-btn,
@@ -180,6 +206,8 @@ ul li {
   max-height: 150px; /* Set a max-height for scrolling */
   overflow-y: auto;
 }
+
+
 
 .sales-log-entry {
   background-color: #f9fafb;
@@ -275,11 +303,7 @@ ul li span {
   color: #333; /* Match the theme */
 }
 
-/* Active tab styling */
-button.active {
-  background-color: #023e8a; /* Darker shade for active state */
-  color: #fff;
-}
+
 
 /* Add any additional styles for buttons or other elements as needed */
 
@@ -304,7 +328,7 @@ html {
 /* Dark Mode Styles */
 .dark-mode {
   background-color: #1a1a1a;
-  color: #dfe6e9; /* Dark blue text color */
+  color: #414b4f; /* Dark blue text color */
 }
 
 .dark-mode .container {
@@ -352,8 +376,12 @@ html {
 }
 
 .dark-mode h2 {
-  color: #dfe6e9;
+  color: #374449;
 }
+.dark-mode h1 {
+  color: #c6d3d7;
+}
+
 
 /* Dark Mode Sales List */
 .dark-mode #sales-list li {
@@ -398,8 +426,196 @@ html {
   background-color: #1e272e;
 }
 
+
 /* Dark Mode Inventory List Items */
 .dark-mode label,
-#inventory-list li span {
+#inventory-list li span{
   color: #042a3a; /* Dark blue text color */
 }
+
+.hidden { display: none; }
+#modal-content {
+  max-height: 300px; /* Set the maximum height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.item-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  color: #1a1a1a;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  justify-content: center;
+  align-items: center;
+}
+
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could adjust based on your preference */
+  border-radius: 10px; /* Rounded corners for the modal content */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Shadow for 3D effect */
+  animation: animatetop 0.4s; /* Animation */
+}
+
+@keyframes animatetop {
+  from {top: -300px; opacity: 0} 
+  to {top: 0; opacity: 1}
+}
+
+/* Style adjustments for the close button */
+#close-modal {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#close-modal:hover,
+#close-modal:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Ensure the item cards within the modal content use the styling */
+#modal-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.item-card {
+  background: #f9f9f9; /* Lighter background for the cards */
+  border: 1px solid #ccc; /* Subtle border */
+  border-radius: 10px; /* Keep rounded corners */
+  padding: 15px; /* Slightly more padding */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for interactivity */
+  cursor: pointer; /* Indicates that the card is clickable */
+}
+
+.item-card:hover {
+  transform: scale(1.02); /* Slightly enlarge cards on hover */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
+}
+
+/* Style adjustments for the item attributes inside the card */
+.item-name {
+  font-size: 18px; /* Larger font size for item name */
+  font-weight: bold; /* Make item name bold */
+  margin-bottom: 10px; /* Space between name and cost/price */
+  color: #1a1a1a;
+}
+
+.item-cost, .item-price {
+  color: #555; /* Darker text color for contrast */
+  font-size: 16px; /* Slightly larger font size */
+}
+
+#booth-buttons-container button {
+  background-color: #98aee3; /* Green background for distinction */
+  color: white; /* White text color for contrast */
+  border: 0px; /* No border for a cleaner look */
+  padding: 10px 20px; /* Ample padding for a larger button */
+  margin: 5px; /* Margin to avoid button clustering */
+  border-radius: 5px; /* Slightly rounded corners */
+  cursor: pointer; /* Cursor pointer to indicate clickability */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+#booth-buttons-container .active-booth {
+  background-color: #7766c2; /* Change to match your theme */
+  color: white;
+  border: 2px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  outline: 2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Optional: Adds depth */
+  transform: scale(1.05);
+}
+
+#booth-buttons-container button:hover {
+  background-color: #7766c2; /* Darker green on hover for interactivity */
+}
+
+#view-all-items {
+  background-color: #76bd8d; /* Sleek blue, adjustable to fit your theme */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 20px auto; /* Center alignment */
+  display: block; /* Necessary for margin auto to work */
+  width: 60%; /* Wider appearance */
+  border-radius: 25px; /* Rounded corners for a modern look */
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Smooth transitions for interactivity */
+}
+
+#view-all-items:hover {
+  background-color: #32af5a; /* Darker shade on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* More pronounced shadow on hover */
+  transform: scale(1.05); /* Slightly larger on hover */
+}
+
+.tooltip {
+  visibility: hidden;
+  min-width: 220px; /* Adjust width as needed */
+  background-color: #2c3e50e5; /* Dark shade for contrast */
+  color: #fff;
+  text-align: center;
+  border-radius: 8px; /* Slightly larger radius for modern curves */
+  padding: 10px 15px; /* More padding for better content fit */
+  position: absolute;
+  z-index: 100;
+  bottom: 100%; /* Position above the parent element */
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Soft shadow for depth */
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s; /* Smooth transitions for all properties */
+}
+
+.tooltip::after {
+  content: " ";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #2c3e50 transparent transparent transparent; /* Arrow color matches the tooltip */
+}
+
+#total-cost-display:hover .tooltip,
+#total-display:hover .tooltip,
+#sales-total:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(-10px); /* Slightly move up to attract attention */
+}
+
+
