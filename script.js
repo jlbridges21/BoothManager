@@ -648,6 +648,25 @@ document.addEventListener("DOMContentLoaded", () => {
     displayInventoryItems(); // Refresh the inventory list to show all items
     updateBoothButtons(); // Refresh the booth buttons to remove any active state
   });
+
+    // JavaScript function to export inventory data to CSV
+function exportToCsv(filename, rows) {
+  const csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", filename);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+document.getElementById("export-csv-btn").addEventListener("click", () => {
+  const inventoryItems = JSON.parse(localStorage.getItem("inventoryItems")) || [];
+  // Include headers
+  const rows = [["ID", "Name", "Description", "Cost", "Price", "Booth Name"], ...inventoryItems.map(item => [item[0], item[1], item[2], item[3], item[4], item[5]])];
+  exportToCsv("inventory.csv", rows);
+});
   
 
   init();
