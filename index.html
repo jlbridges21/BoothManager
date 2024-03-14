@@ -5,21 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inventory Management Application</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/webp" href="/images/favicon copy.png">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div class="container">
       <div id="inventory-view" class="view">
         <div class="inventory-app">
-          <h2>
+          <h1>
             <img id="logo" src="images/icon2.png" alt="logo" /> Booth Manager
-          </h2>
+          </h1>
           <button id="add-item-btn">Add New Item</button>
-          <button id="inventory-tab-btn" class="tab-btn active">
-            Inventory
-          </button>
+          
           <button id="sales-tab-btn" class="tab-btn">Sales</button>
           <button id="dark-mode-toggle" class="tab-btn">Dark Mode</button>
-          <select id="booth-filter">
+          
+          <br>
+
+          <button id='view-all-items'>All Items</button>
+          <div id="booth-buttons-container"></div>
+          
+          <div id="items-modal" class="hidden">
+            <div id="modal-content"></div>
+          </div>
+          
+
+          <select id="booth-filter" style="display: none;">
             <option value="all">All Booths</option>
           </select>
           <div id="item-form-modal" class="modal">
@@ -72,24 +84,26 @@
           <ul id="inventory-list">
             <!-- Items will be dynamically added here -->
           </ul>
-          <div id="total-cost-display">Total Cost: $0</div>
-          <div id="total-display">Listing Price: $0</div>
-          <div id="sales-total">Sales: $0</div>
-          <button id="save-reset-sales-btn">Save Sales Data & Reset</button>
-          <button id="view-sales-log-btn">View Sales Log</button>
-          <div id="sales-log" style="display: none"></div>
-          <button id="clear-sales-log-btn" style="display: none">
-            Clear All Sales Log
-          </button>
+          <div id="total-cost-display">Total Cost: $0<div class="tooltip">This is the cost of the items currently in your inventory</div></div>
+          <div id="total-display">Listing Price: $0<div class="tooltip">This is the total listing price of all the items in your inventory</div></div>
+
+          <div id="sales-total">Sales: $0<div class="tooltip">This is your Total Sales. <br>Click me to see details</div></div>
         </div>
       </div>
       <div id="sales-view" class="view" style="display: none">
         <h3>Sold Items<img src="/images/home.png" id="home" /></h3>
+        <div id="sales-chart-container">
+          <canvas id="salesChart"></canvas>
+        </div>
         <ul id="sales-list">
           <!-- Sold items will be dynamically added here -->
         </ul>
-        <div id="total-sales">Total Sales: $0</div>
+        <div id="total-sales">Total Sales: $0<div class="tooltip">This is your Total Sales. <br>Click me to see details</div></div>
+        <!-- New divs for Total Cost and Profit -->
+        <div id="total-cost"><div class="tooltip">This is the cost of the items currently in your inventory</div></div>
+        <div id="profit"><div class="tooltip">Net profit from sales</div></div>
       </div>
+      
     </div>
     <script src="script.js"></script>
   </body>
